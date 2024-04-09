@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlavorsOfOliveira", "FlavorsOfOliveira.csproj", "{C933EA62-E95E-42D8-9FF1-4EB7275613AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Api", "1-Api", "{4FB89E8C-6EC6-4E79-BF63-CFDC95C78CB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{362C976C-C9F2-43FB-B3C9-D4869EF357D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Repositories", "4-Repositories", "{897B13F3-8839-4445-BA6F-05AC7E82E637}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Data", "5-Data", "{D904F90A-0FF4-4293-A812-B443B1F766EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-ConsoleTest", "6-ConsoleTest", "{3298A538-8C8D-495D-AB77-94BAF81F8427}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlavorsOfOliveira.Domain", "..\FlavorsOfOliveira.Domain\FlavorsOfOliveira.Domain.csproj", "{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlavorsOfOliveira.Repository", "..\FlavorsOfOliveiraRepository\FlavorsOfOliveira.Repository.csproj", "{C209E340-8143-4E25-8E20-F9D2941E5CE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlavorsOfOliveira.Data", "..\FlavorsOfOliveira.Data\FlavorsOfOliveira.Data.csproj", "{788460E7-ACBD-4C86-A72E-54B52AB55D85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlavorsOfOliveira.ConsoleTest", "..\FlavorsOfOliveira.ConsoleTest\FlavorsOfOliveira.ConsoleTest.csproj", "{B296D32D-2E5D-4D5F-92B3-80F936726353}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Services", "2-Services", "{B9395DF5-913B-4095-9D79-06B7DD4674A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlavorsOfOliveira.Services", "..\FlavorsOfOliveira.Services\FlavorsOfOliveira.Services.csproj", "{7F08A1CE-6388-48CD-9EA2-0029777EF547}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C933EA62-E95E-42D8-9FF1-4EB7275613AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C933EA62-E95E-42D8-9FF1-4EB7275613AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C933EA62-E95E-42D8-9FF1-4EB7275613AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C933EA62-E95E-42D8-9FF1-4EB7275613AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C209E340-8143-4E25-8E20-F9D2941E5CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C209E340-8143-4E25-8E20-F9D2941E5CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C209E340-8143-4E25-8E20-F9D2941E5CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C209E340-8143-4E25-8E20-F9D2941E5CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{788460E7-ACBD-4C86-A72E-54B52AB55D85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788460E7-ACBD-4C86-A72E-54B52AB55D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788460E7-ACBD-4C86-A72E-54B52AB55D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788460E7-ACBD-4C86-A72E-54B52AB55D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B296D32D-2E5D-4D5F-92B3-80F936726353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B296D32D-2E5D-4D5F-92B3-80F936726353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B296D32D-2E5D-4D5F-92B3-80F936726353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B296D32D-2E5D-4D5F-92B3-80F936726353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F08A1CE-6388-48CD-9EA2-0029777EF547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F08A1CE-6388-48CD-9EA2-0029777EF547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F08A1CE-6388-48CD-9EA2-0029777EF547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F08A1CE-6388-48CD-9EA2-0029777EF547}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C933EA62-E95E-42D8-9FF1-4EB7275613AB} = {4FB89E8C-6EC6-4E79-BF63-CFDC95C78CB5}
+		{BEAFEB5B-B425-4218-BD3D-F3C0BCC41DA3} = {362C976C-C9F2-43FB-B3C9-D4869EF357D8}
+		{C209E340-8143-4E25-8E20-F9D2941E5CE0} = {897B13F3-8839-4445-BA6F-05AC7E82E637}
+		{788460E7-ACBD-4C86-A72E-54B52AB55D85} = {D904F90A-0FF4-4293-A812-B443B1F766EF}
+		{B296D32D-2E5D-4D5F-92B3-80F936726353} = {3298A538-8C8D-495D-AB77-94BAF81F8427}
+		{7F08A1CE-6388-48CD-9EA2-0029777EF547} = {B9395DF5-913B-4095-9D79-06B7DD4674A1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FD9801A-0F2A-41EA-8368-0A327F08510A}
+	EndGlobalSection
+EndGlobal
