@@ -1,4 +1,5 @@
 ﻿using FlavorsOfOliveira.Domain.Entities;
+using FlavorsOfOliveira.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,15 @@ namespace FlavorsOfOliveira.Controllers
 	[ApiController]
 	public class UserRecipeController : ControllerBase
 	{
+
+		private readonly IUserRecipeRepository _userRecipeRepository;
+
+		public UserRecipeController(IUserRecipeRepository userRecipeRepository)
+		{
+			_userRecipeRepository = userRecipeRepository;
+		}
+
+
 		[HttpGet]
 		public List<UserRecipe> GetAll()
 		{

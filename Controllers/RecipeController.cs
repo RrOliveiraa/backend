@@ -1,4 +1,5 @@
 ﻿using FlavorsOfOliveira.Domain.Entities;
+using FlavorsOfOliveira.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,12 @@ namespace FlavorsOfOliveira.Controllers
 	[ApiController]
 	public class RecipeController : ControllerBase
 	{
+		private readonly IRecipeRepository _recipeRepository;
+
+		public RecipeController(IRecipeRepository recipeRepository)
+		{
+			_recipeRepository = recipeRepository;
+		}
 		[HttpGet]
 		public List<Recipe> GetAll()
 		{
@@ -17,8 +24,9 @@ namespace FlavorsOfOliveira.Controllers
 		[HttpGet("{Id}")]
 		public Recipe GetById(int Id)
 		{
-			return GetById(Id);
+			return _recipeRepository.GetById(Id);
 		}
+
 
 		[HttpPost]
 		public Recipe Save(Recipe recipe)

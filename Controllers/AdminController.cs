@@ -28,19 +28,6 @@ namespace FlavorsOfOliveira.Controllers
 
 
 
-
-		[HttpGet]
-		public List<Admin> GetAll()
-		{
-			return GetAll();
-		}
-
-		[HttpGet("{Id}")]
-		public Admin GetById(int Id)
-		{
-			return GetById(Id);
-		}
-
 		[HttpPost]
 		public Admin Save(Admin admin)
 		{
@@ -48,11 +35,27 @@ namespace FlavorsOfOliveira.Controllers
 		}
 
 		[HttpDelete("{Id}")]
-		public void Remove(int Id)
+		public IActionResult Remove(int Id)
 		{
-			Remove(Id);
-		}
+			// Verifica se o usuário com o ID fornecido existe
+			var user = _userRepository.GetById(Id);
+			if (user == null)
+			{
+				return NotFound("User not found");
+			}
 
+			try
+			{
+				// Remove o usuário
+				_userRepository.Remove(user);
+				return Ok("User removed successfully");
+			}
+			catch (Exception ex)
+			{
+				// Handle exception
+				return StatusCode(500, "Failed to remove user");
+			}
+		}
 
 		[HttpPost("Login")]
 		
@@ -70,7 +73,7 @@ namespace FlavorsOfOliveira.Controllers
 			return Unauthorized("Login failed, try again!");
 		}
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpGet("Users")]
 		
 
@@ -81,31 +84,29 @@ namespace FlavorsOfOliveira.Controllers
 			return Ok(users);
 		}
 
-		[Authorize(Roles = "Admin")]
-		[HttpPut("Users/{userId}/Block")]
-		
 
-		public IActionResult BlockUser(int userId)
+
+		[HttpPost("BlockUser")]
+		public IActionResult BlockUser(int Id)
 		{
-			var user = _userRepository.GetById(userId);
+			var user = _userRepository.GetById(Id);
 			if (user == null)
 			{
-				return NotFound($"User with ID {userId} not found.");
+				return NotFound($"User with ID {Id} not found.");
 			}
 
 			user.IsBlocked = true;
 			_userRepository.Update(user);
 
-			return Ok($"User with ID {userId} has been blocked.");
+			return Ok($"User with ID {Id} has been blocked.");
 		}
 
-		[Authorize(Roles = "Admin")]
-		[HttpPut("Recipes/{recipeId}/Approve")]
-		
 
-		public IActionResult ApproveRecipe(int recipeId)
+
+		[HttpPost("AproveRecipe")]
+		public IActionResult ApproveRecipe(int Id)
 		{
-			var recipe = _recipeRepository.GetById(recipeId);
+			var recipe = _recipeRepository.GetById(Id);
 			if (recipe == null)
 			{
 				return NotFound();
@@ -114,16 +115,15 @@ namespace FlavorsOfOliveira.Controllers
 			recipe.IsApprovedByAdmin = true; // Aprova a receita
 			_recipeRepository.Update(recipe);
 
-			return Ok($"Recipe with ID {recipeId} has been approved.");
+			return Ok($"Recipe with ID {Id} has been approved.");
 		}
 
-		[Authorize(Roles = "Admin")]
-		[HttpPut("Recipes/{recipeId}/Reject")]
-		
 
-		public IActionResult RejectRecipe(int recipeId)
+
+		[HttpPost("RejectRecipe")]
+		public IActionResult RejectRecipe(int Id)
 		{
-			var recipe = _recipeRepository.GetById(recipeId);
+			var recipe = _recipeRepository.GetById(Id);
 			if (recipe == null)
 			{
 				return NotFound();
@@ -132,21 +132,20 @@ namespace FlavorsOfOliveira.Controllers
 			recipe.IsApprovedByAdmin = false; // Rejeita a receita
 			_recipeRepository.Update(recipe);
 
-			return Ok($"Recipe with ID {recipeId} has been rejected.");
+			return Ok($"Recipe with ID {Id} has been rejected.");
 		}
 
 
-		[Authorize(Roles = "Admin")]
-		[HttpPut("EditRecipe/{recipeId}")]
 		
-
-		public IActionResult EditRecipe(int recipeId, [FromBody] Recipe updatedRecipe)
+		
+  [HttpPost("EditRecipe")]
+		public IActionResult EditRecipe(int Id, [FromBody] Recipe updatedRecipe)
 		{
 			// Verifique se a receita existe
-			var existingRecipe = _recipeRepository.GetById(recipeId);
+			var existingRecipe = _recipeRepository.GetById(Id);
 			if (existingRecipe == null)
 			{
-				return NotFound($"Recipe with ID {recipeId} not found");
+				return NotFound($"Recipe with ID {Id} not found");
 			}
 			else
 			{
@@ -166,9 +165,24 @@ namespace FlavorsOfOliveira.Controllers
 
 			}
 		}
-  
-	
 
+		[HttpGet("PendingRecipes")]
+		public IActionResult GetPendingRecipes()
+		{
+			// Busque todas as receitas pendentes de aprovação
+			var pendingRecipes = _recipeRepository.GetPendingRecipes();
+
+			// Verifique se existem receitas pendentes
+			if (pendingRecipes == null || pendingRecipes.Count == 0)
+			{
+				return NotFound("No pending recipes found");
+			}
+
+			// Retorne a lista de receitas pendentes
+			return Ok(pendingRecipes);
+		}
+
+  
 
 
 	}
