@@ -1,4 +1,5 @@
-﻿using FlavorsOfOliveira.Domain.Entities;
+﻿using FlavorsOfOliveira.Data.Context;
+using FlavorsOfOliveira.Domain.Entities;
 using FlavorsOfOliveira.Repository.Implementations;
 using FlavorsOfOliveira.Repository.Interfaces;
 using FlavorsOfOliveira.Services.Interfaces;
@@ -48,7 +49,7 @@ namespace FlavorsOfOliveira.Controllers
 
 
 		[HttpPost("Register")]
-		public IActionResult Register([FromBody] User user)
+		public IActionResult Register([FromBody] UserRegister userRegister)
 		{
 			// Valida os dados recebidos
 			if (!ModelState.IsValid)
@@ -57,7 +58,7 @@ namespace FlavorsOfOliveira.Controllers
 			}
 
 			// Verifica se o username já está em uso
-			if (_userRepository.ExistsByUsername(user.UserName))
+			if (_userRepository.ExistsByUsername(userRegister.UserName))
 			{
 				return BadRequest("Username already exists");
 			}
@@ -65,11 +66,10 @@ namespace FlavorsOfOliveira.Controllers
 			// Crie um novo objeto User com os dados fornecidos
 			var newUser = new User
 			{
-				UserName = user.UserName,
-				Password = user.Password,
-				Email = user.Email,
-				Name = user.Name,
-
+				UserName = userRegister.UserName,
+				Password = userRegister.Password,
+				Email = userRegister.Email,
+				Name = userRegister.Name,
 			};
 
 			// guarda o novo user no banco de dados
@@ -83,10 +83,10 @@ namespace FlavorsOfOliveira.Controllers
 
 
 		[HttpPost("Login")]
-		public IActionResult Login([FromBody] User user)
+		public IActionResult Login([FromBody] Login login)
 		{
 			// Verificar as credenciais do usuário
-			if (_userRepository.AuthenticatedUser(user.UserName, user.Password))
+			if (_userRepository.AuthenticatedUser(login.UserName, login.Password))
 			{
 				// Criar um cookie de autenticação
 				var cookieOptions = new CookieOptions
@@ -100,7 +100,7 @@ namespace FlavorsOfOliveira.Controllers
 				};
 
 				// Adicionar o nome do usuário ao cookie de autenticação
-				Response.Cookies.Append("UserName", user.UserName, cookieOptions);
+				Response.Cookies.Append("UserName", login.UserName, cookieOptions);
 
 				// Retornar uma resposta de sucesso
 				return Ok("Login successful!");
@@ -178,89 +178,10 @@ namespace FlavorsOfOliveira.Controllers
 			}
 		}
 
+		
 
-		[HttpPost("CreateRecipe")]
-  
-  public IActionResult CreateRecipe([FromBody] Recipe recipe) 
-  {
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
 
-			recipe.IsApprovedByAdmin = false;
 
-			// Verifica se o username já está em uso
-			if (_recipeRepository.ExistsByTitle(recipe.Title))
-			{
-				return BadRequest("Recipe already exists");
-			}
-
-			// Crie um novo objeto User com os dados fornecidos
-			var newRecipe = new Recipe
-			{
-				Title = recipe.Title,
-				Description = recipe.Description,
-				Difficulty = recipe.Difficulty,
-				Duration = recipe.Duration,
-    Ingredients = recipe.Ingredients,
-
-			};
-
-			// guarda o novo user no banco de dados
-			_recipeRepository.Add(newRecipe);
-
-			// Retorne uma resposta de sucesso com o novo usuário criado
-			return CreatedAtAction(nameof(GetById), new { id = newRecipe.Id }, newRecipe);
-		}
-
-		[HttpPost("AddFavoriteRecipe")]
-		public IActionResult AddFavoriteRecipe(string username, string title)
-		{
-			var user = _userRepository.GetByUsername(username);
-			if (user == null)
-			{
-				return NotFound($"User with username {username} not found.");
-			}
-
-			var recipe = _recipeRepository.GetByTitle(title);
-			if (recipe == null)
-			{
-				return NotFound($"Recipe with title {title} not found.");
-			}
-
-			user.FavoriteRecipes.Add(recipe);
-			_userRepository.Update(user);
-
-			return Ok($"Recipe with title {title} added to favorites for user with username {username}.");
-
-		}
-
-  
-  [HttpPost("RemoveFavoriteRecipe")]
-  public IActionResult RemoveFavoriteRecipe(string username, string title) 
-  {
-			var user = _userRepository.GetByUsername(username);
-   if (user == null) 
-   {
-				return NotFound($"User with username {username} not found. ");
-   }
-
-			var recipe = _recipeRepository.GetByTitle(title);
-   if (recipe == null)
-   {
-     return NotFound($"Recipe with {title} not found.");
-			}
-   
-   user.FavoriteRecipes.Remove(recipe);
-   _userRepository.Update(user);
-
-			return Ok($"Recipe with title {title} removed from favorites for user with username {username}.");
-
-  }
- 
- 
-  
- }
+	}
 }
 

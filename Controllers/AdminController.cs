@@ -8,6 +8,7 @@ using FlavorsOfOliveira.Repository.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
+using FlavorsOfOliveira.Migrations;
 
 namespace FlavorsOfOliveira.Controllers
 {
@@ -15,13 +16,13 @@ namespace FlavorsOfOliveira.Controllers
 	[ApiController]
 	public class AdminController : ControllerBase
 	{
-		private readonly FlavorsOfOliveiraDBContext _context;
+		private readonly FlavorsOfOliveiraDBContext _flavorsOfOliveiraDBcontext;
 		private readonly IUserRepository _userRepository;
   private readonly IRecipeRepository _recipeRepository;
 
-		public AdminController(FlavorsOfOliveiraDBContext context, IUserRepository userRepository, IRecipeRepository recipeRepository)
+		public AdminController(FlavorsOfOliveiraDBContext context, IUserRepository userRepository, IRecipeRepository recipeRepository, FlavorsOfOliveiraDBContext? flavrosOfOliveiraDBcontext)
 		{
-			_context = context;
+			_flavorsOfOliveiraDBcontext = flavrosOfOliveiraDBcontext;
 			_userRepository = userRepository;
 			_recipeRepository = recipeRepository;
 		}
@@ -34,10 +35,10 @@ namespace FlavorsOfOliveira.Controllers
 			return Save(admin);
 		}
 
-		[HttpDelete("{Id}")]
+		[HttpDelete("DeleteUser")]
 		public IActionResult Remove(int Id)
 		{
-			// Verifica se o usuário com o ID fornecido existe
+			// Verifica se o user com o ID fornecido existe
 			var user = _userRepository.GetById(Id);
 			if (user == null)
 			{
@@ -46,7 +47,7 @@ namespace FlavorsOfOliveira.Controllers
 
 			try
 			{
-				// Remove o usuário
+				// Remove o user
 				_userRepository.Remove(user);
 				return Ok("User removed successfully");
 			}
@@ -57,11 +58,39 @@ namespace FlavorsOfOliveira.Controllers
 			}
 		}
 
+		[HttpDelete("DeleteRecipe/{id}")]
+		public IActionResult DeleteRecipe(int id)
+		{
+			// Procurar a receita pelo id
+			var recipe = _recipeRepository.GetById(id);
+
+			// Verificar se a receita existe
+			if (recipe == null)
+			{
+				return NotFound($"Recipe with ID {id} not found.");
+			}
+
+			try
+			{
+				// Remover a receita
+				_recipeRepository.Remove(recipe);
+				_flavorsOfOliveiraDBcontext.SaveChanges();
+
+				// Retorna uma resposta de sucesso
+				return Ok($"Recipe with ID {id} has been deleted successfully.");
+			}
+			catch (Exception ex)
+			{
+				// Se ocorrer um erro ao excluir a receita, retornar um status de erro
+				return StatusCode(500, $"An error occurred while deleting the recipe: {ex.Message}");
+			}
+		}
+
 		[HttpPost("Login")]
 		
 		public IActionResult Login([FromBody] Admin admin)
 		{
-			var authenticatedAdmin = _context.Admins.SingleOrDefault(a => a.UserName == admin.UserName && a.Password == admin.Password);
+			var authenticatedAdmin = _flavorsOfOliveiraDBcontext.Admins.SingleOrDefault(a => a.UserName == admin.UserName && a.Password == admin.Password);
 
 			if (authenticatedAdmin != null)
 			{
@@ -87,19 +116,34 @@ namespace FlavorsOfOliveira.Controllers
 
 
 		[HttpPost("BlockUser")]
-		public IActionResult BlockUser(int Id)
+		public IActionResult BlockUser(string username)
 		{
-			var user = _userRepository.GetById(Id);
+			var user = _userRepository.GetByUsername(username);
 			if (user == null)
 			{
-				return NotFound($"User with ID {Id} not found.");
+				return NotFound($"User with ID {username} not found.");
 			}
 
 			user.IsBlocked = true;
 			_userRepository.Update(user);
 
-			return Ok($"User with ID {Id} has been blocked.");
+			return Ok($"User with ID {username} has been blocked.");
 		}
+
+  [HttpPost("UnblockUser")]
+  public IActionResult DisblockUser(string username) 
+  {
+			var user = _userRepository.GetByUsername(username);
+   if (user == null)
+   {
+				return NotFound($"User wtih ID {username} not found.");
+   }
+   
+   user.IsBlocked = false;
+   _userRepository.Update(user);
+			return Ok($"User with {username} has been unlocked.");
+
+  }
 
 
 
@@ -158,7 +202,7 @@ namespace FlavorsOfOliveira.Controllers
 				existingRecipe.Difficulty = updatedRecipe.Difficulty;
 				existingRecipe.IsApprovedByAdmin = updatedRecipe.IsApprovedByAdmin; // Talvez o admin queira alterar isso
 
-				// Salve as alterações no repositório
+				// gaurda as alteraçoes
 				_recipeRepository.Update(existingRecipe);
 
 				return Ok("Recipe updated successfully");
@@ -169,20 +213,20 @@ namespace FlavorsOfOliveira.Controllers
 		[HttpGet("PendingRecipes")]
 		public IActionResult GetPendingRecipes()
 		{
-			// Busque todas as receitas pendentes de aprovação
+			// Obtém a lista de receitas pendentes
 			var pendingRecipes = _recipeRepository.GetPendingRecipes();
 
-			// Verifique se existem receitas pendentes
-			if (pendingRecipes == null || pendingRecipes.Count == 0)
+			// Verifica se existem receitas pendentes
+			if (pendingRecipes.Count == 0)
 			{
 				return NotFound("No pending recipes found");
 			}
 
-			// Retorne a lista de receitas pendentes
+			// Retorna a lista de receitas pendentes
 			return Ok(pendingRecipes);
 		}
 
-  
+
 
 
 	}
