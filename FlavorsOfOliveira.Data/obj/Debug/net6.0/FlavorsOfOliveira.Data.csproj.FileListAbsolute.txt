@@ -1,0 +1,30 @@
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.csproj.AssemblyReference.cache
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.AssemblyInfoInputs.cache
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.AssemblyInfo.cs
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.csproj.CoreCompileInputs.cache
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.deps.json
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.dll
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.pdb
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Domain.dll
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Domain.pdb
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsO.D504E510.Up2Date
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.dll
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\refint\FlavorsOfOliveira.Data.dll
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.pdb
+C:\Users\Rafael Oliveira\Desktop\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\ref\FlavorsOfOliveira.Data.dll
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.deps.json
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.dll
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Data.pdb
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Domain.dll
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\bin\Debug\net6.0\FlavorsOfOliveira.Domain.pdb
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.csproj.AssemblyReference.cache
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.AssemblyInfoInputs.cache
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.AssemblyInfo.cs
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.csproj.CoreCompileInputs.cache
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsO.D504E510.Up2Date
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.dll
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\refint\FlavorsOfOliveira.Data.dll
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\FlavorsOfOliveira.Data.pdb
+C:\Curso\ProjetoFinal\FlavorsOfOliveira\FlavorsOfOliveira.Data\obj\Debug\net6.0\ref\FlavorsOfOliveira.Data.dll
