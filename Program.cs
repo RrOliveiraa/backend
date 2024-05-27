@@ -27,8 +27,8 @@ namespace FlavorsOfOliveira
 			services.AddControllers();
 
 			services.AddDbContext<FlavorsOfOliveiraDBContext>();
-			
-   services.AddScoped<IAdminRepository, AdminRepository>();
+
+			services.AddScoped<IAdminRepository, AdminRepository>();
 			services.AddScoped<IRecipeRepository, RecipeRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IUserRecipeRepository, UserRecipeRepository>();
@@ -38,18 +38,21 @@ namespace FlavorsOfOliveira
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IUserRecipeService, UserRecipeService>();
 
-
-
+			services.AddCors(options => options.AddPolicy("corspolicy", policy =>
+			{
+				policy.AllowAnyHeader()
+										.AllowAnyMethod()
+										.WithOrigins("http://localhost:4200") // URL do frontend Angular
+										.AllowCredentials(); // Permitir cookies
+			}));
 
 			services.AddSwaggerGen(options =>
 			{
-				options.SwaggerDoc(
-								"FlavorsOfOliveiraApi",
-								new OpenApiInfo()
-								{
-									Title = "FlavorsOfOliveira Api",
-									Version = "1.0"
-								});
+				options.SwaggerDoc("FlavorsOfOliveiraApi", new OpenApiInfo
+				{
+					Title = "FlavorsOfOliveira Api",
+					Version = "1.0"
+				});
 			});
 		}
 
@@ -59,8 +62,8 @@ namespace FlavorsOfOliveira
 			app.UseHttpsRedirection();
 			app.UseRouting();
    app.UseAuthentication();
-   app.UseAuthorization();
-			app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+   app.UseCors("corspolicy");
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

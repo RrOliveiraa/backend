@@ -21,13 +21,15 @@ namespace FlavorsOfOliveira.Controllers
 			_flavorsOfOliveiraDBContext = flavorsOfOliveiraDBContext;
 			_userRepository = userRepository;
 		}
+
+
 		[HttpGet]
 		public List<Recipe> GetAll()
 		{
 			return _recipeRepository.GetAll();
 		}
 
-		[HttpGet("{Id}")]
+		[HttpGet("RecipeBy{Id}")]
 		public Recipe GetById(int Id)
 		{
 			return _recipeRepository.GetById(Id);
@@ -81,7 +83,7 @@ namespace FlavorsOfOliveira.Controllers
 			
 			foreach (var ingredient in recipe.Ingredients)
 			{
-				// Agora a variável ingredient é declarada dentro do loop
+				
 				var ingredients = new Ingredient
 				{
 					Name = ingredient.Name,

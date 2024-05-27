@@ -5,6 +5,7 @@ using FlavorsOfOliveira.Repository.Interfaces;
 using FlavorsOfOliveira.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FlavorsOfOliveira.Controllers
 {
@@ -72,7 +73,7 @@ namespace FlavorsOfOliveira.Controllers
 				Name = userRegister.Name,
 			};
 
-			// guarda o novo user no banco de dados
+			// Guarda o novo user no banco de dados
 			_userRepository.Add(newUser);
 
 			// Retorne uma resposta de sucesso com o novo usuário criado
@@ -88,25 +89,23 @@ namespace FlavorsOfOliveira.Controllers
 			// Verificar as credenciais do usuário
 			if (_userRepository.AuthenticatedUser(login.UserName, login.Password))
 			{
-				// Criar um cookie de autenticação
-				var cookieOptions = new CookieOptions
+				// Obter as informações completas do usuário
+				var user = _userRepository.GetByUsername(login.UserName);
+
+				// Armazenar as informações do usuário em um cookie
+				Response.Cookies.Append("UserInfo", JsonConvert.SerializeObject(user), new CookieOptions
 				{
-					// Define a expiração do cookie (opcional)
+					
 					Expires = DateTime.UtcNow.AddHours(1),
-					// Indica que o cookie só deve ser enviado em solicitações HTTPS (opcional)
+					// Indica que o cookie só deve ser enviado em solicitações HTTPS 
 					Secure = true,
-					// Indica se o cookie é acessível somente pelo servidor (opcional)
+			
 					HttpOnly = true
-				};
+				});
 
-				// Adicionar o nome do usuário ao cookie de autenticação
-				Response.Cookies.Append("UserName", login.UserName, cookieOptions);
-
-				// Retornar uma resposta de sucesso
 				return Ok("Login successful!");
 			}
 
-			// Se as credenciais forem inválidas, retornar um erro
 			return Unauthorized("Invalid username or password");
 		}
 
@@ -114,37 +113,28 @@ namespace FlavorsOfOliveira.Controllers
 		[HttpGet("UserInfo")]
 		public IActionResult UserInfo()
 		{
-			// Verifica se o usuário está autenticado
-			if (HttpContext.User.Identity.IsAuthenticated)
+			// Recuperar as informações do usuário armazenadas no cookie
+			var userInfoCookie = Request.Cookies["UserInfo"];
+
+			// Verificar se as informações do usuário estão disponíveis no cookie
+			if (!string.IsNullOrEmpty(userInfoCookie))
 			{
-				// Obtém o nome de usuário do usuário autenticado
-				string username = HttpContext.User.Identity.Name;
-
-				var user = _userRepository.GetByUsername(username);
-
-				// Verifica se o usuário foi encontrado
-				if (user == null)
-				{
-					return NotFound("User not found");
-				}
+				var user = JsonConvert.DeserializeObject<User>(userInfoCookie);
 
 				// Retorna as informações do usuário na resposta
 				return Ok(new
 				{
 					Name = user.Name,
 					Email = user.Email,
-     Username = user.UserName,
-     Password = user.Password,
-     FavoriteRecipes = user.FavoriteRecipes,
+					Username = user.UserName,
+					FavoriteRecipes = user.FavoriteRecipes,
 					// Adicione outros detalhes do usuário conforme necessário
 				});
 			}
-			else
-			{
-				return Unauthorized("User is not authenticated");
-			}
-		}
 
+			// Se as informações do usuário não estiverem disponíveis, retornar um erro
+			return Unauthorized("User is not authenticated");
+		}
 
 
 		[HttpPost("ForgotPassword")]

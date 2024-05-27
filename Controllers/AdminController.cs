@@ -35,11 +35,17 @@ namespace FlavorsOfOliveira.Controllers
 			return Save(admin);
 		}
 
-		[HttpDelete("DeleteUser")]
-		public IActionResult Remove(int Id)
+		[HttpGet("Users")]
+		public IActionResult GetRegisteredUsers()
 		{
-			// Verifica se o user com o ID fornecido existe
-			var user = _userRepository.GetById(Id);
+			var users = _userRepository.GetAll();
+			return Ok(users);
+		}
+
+		[HttpDelete("DeleteUser/{id}")]
+		public IActionResult Remove(int id)
+		{
+			var user = _userRepository.GetById(id);
 			if (user == null)
 			{
 				return NotFound("User not found");
@@ -47,13 +53,13 @@ namespace FlavorsOfOliveira.Controllers
 
 			try
 			{
-				// Remove o user
 				_userRepository.Remove(user);
 				return Ok("User removed successfully");
 			}
 			catch (Exception ex)
 			{
-				// Handle exception
+		
+				Console.WriteLine($"Exception removing user: {ex.Message}");
 				return StatusCode(500, "Failed to remove user");
 			}
 		}
@@ -103,15 +109,7 @@ namespace FlavorsOfOliveira.Controllers
 		}
 
 		
-		[HttpGet("Users")]
-		
 
-		public IActionResult GetRegisteredUsers()
-		{
-			var users = _userRepository.GetAll();
-
-			return Ok(users);
-		}
 
 
 
